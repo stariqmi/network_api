@@ -3,6 +3,15 @@ class EventController < ApplicationController
 	# Need to implement a security, key system due to next line
 	skip_before_filter :verify_authenticity_token
 
+	# Validate API_KEY
+    before_filter :check_api_key, except: [:all, :show]
+
+    def check_api_key
+        user = User.find_by(api_key: params[:api_key])
+        check = user != nil and user[:id] == params[:admin]
+        head :unauthorized unless check
+    end
+
 
 	def all
 		events = Event.all

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140105082804) do
+ActiveRecord::Schema.define(version: 20140105204824) do
 
   create_table "events", force: true do |t|
     t.string   "title"
@@ -38,8 +38,10 @@ ActiveRecord::Schema.define(version: 20140105082804) do
     t.string   "event_wishlist"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "api_key"
   end
 
+  add_index "users", ["api_key"], name: "index_users_on_api_key", unique: true
   add_index "users", ["email"], name: "index_users_on_email", unique: true
   add_index "users", ["event_id"], name: "index_users_on_event_id"
 

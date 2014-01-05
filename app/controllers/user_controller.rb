@@ -3,9 +3,22 @@ class UserController < ApplicationController
     # Need to implement a security, key system due to next line
     skip_before_filter :verify_authenticity_token
 
+    # Validate API_KEY
+    before_filter :check_api_key, except: [:create, :all]
+
+    def check_api_key
+        user = User.find_by(api_key: params[:api_key])
+        check = user != nil and user[:id] == params[:id]
+        head :unauthorized unless check
+    end
+
 
     def all
         users = User.all
+        users.each do |user|
+            # user[:id] = ""
+            user[:api_key] = ""
+        end
         render json: users
     end
 
