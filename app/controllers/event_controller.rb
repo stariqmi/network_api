@@ -1,0 +1,57 @@
+class EventController < ApplicationController
+
+	# Need to implement a security, key system due to next line
+	skip_before_filter :verify_authenticity_token
+
+
+	def all
+		events = Event.all
+		render json: events
+	end
+
+
+	def show
+		event = Event.find_by id: params[:id]
+		render json: event
+	end
+
+
+	def create
+		args = {
+			title: params[:title],
+			admin: params[:admin],
+			start_date: Date.strptime(params[:start_date], '%d-%m-%Y'),
+			end_date: Date.strptime(params[:end_date], '%d-%m-%Y'),
+			start_time: params[:start_time],
+			end_time: params[:end_time],
+			address: params[:address],
+			gps_coord: params[:coords]
+		}
+
+		event = Event.create(args)
+		if event.id == nil
+            render :json => {error: "Event by title already exists"}
+        else
+            render :json => event
+        end
+	end
+
+
+	def update
+		event = Event.find_by id: params[:id]
+		args = {
+			title: params[:title],
+			admin: params[:admin],
+			start_date: Date.strptime(params[:start_date], '%d-%m-%Y'),
+			end_date: Date.strptime(params[:end_date], '%d-%m-%Y'),
+			start_time: params[:start_time],
+			end_time: params[:end_time],
+			address: params[:address],
+			gps_coord: params[:coords]
+		}
+
+		event.update_attributes(args)
+		render json: event
+	end
+
+end
