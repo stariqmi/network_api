@@ -13,10 +13,8 @@ Network::Application.routes.draw do
   # Event routes
   match "events", to: "event#all", via: :get
   match "event/:id", to: "event#show", via: :get
-  match "event/create/:admin/:api_key/:title/:start_date/:end_date/"\
-        ":start_time/:end_time/:address/:coords", to: "event#create", via: :post
-  match "event/update/:id/:admin/:api_key/:title/:start_date/:end_date/"\
-        ":start_time/:end_time/:address/:coords", to: "event#update", via: :put
+  match "event/create/:admin", to: "event#create", via: :post   # /:api_key/:title/:start_date/:end_date/:start_time/:end_time/:address/:coords
+  match "event/update", to: "event#update", via: :put           # /:id/:admin/:api_key/:title/:start_date/:end_date/:start_time/:end_time/:address/:coords
 
   # Special Routes
 
