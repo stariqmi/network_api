@@ -34,7 +34,7 @@ class EventController < ApplicationController
 			start_time: params[:start_time],
 			end_time: params[:end_time],
 			address: params[:address],
-			gps_coord: params[:coords]
+			gps_coord: params[:gps]
 		}
 
 		event = Event.create(args)
@@ -56,7 +56,7 @@ class EventController < ApplicationController
 			start_time: params[:start_time],
 			end_time: params[:end_time],
 			address: params[:address],
-			gps_coord: params[:coords]
+			gps_coord: params[:gps]
 		}
 
 		event.update_attributes(args)
