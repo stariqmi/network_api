@@ -10,7 +10,6 @@ Network::Application.routes.draw do
   match "user/update", to: "user#update", via: :put             # /:id/:first_name/:last_name/:linkedin/:email
   match "user/wishlist/:id/:api_key", to: "user#wishlist", via: :get
 
-
   # Event routes
   match "events", to: "event#all", via: :get
   match "event/:id", to: "event#show", via: :get
