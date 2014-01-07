@@ -87,4 +87,12 @@ class UserController < ApplicationController
         end
         render json: wishlist
     end
+
+
+    def delete
+        user = User.find_by id: params[:id]
+        user.destroy
+        render json: {status: "success"}
+    end
+    
 end

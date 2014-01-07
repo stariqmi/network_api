@@ -8,7 +8,8 @@ class EventController < ApplicationController
 
     def check_api_key
         user = User.find_by(api_key: params[:api_key])
-        check = user != nil and user[:id] == params[:admin]
+        event = Event.find_by(id: params[:id])
+        check = user != nil and user[:id] == params[:admin] and event != nil and event[:admin] != params[:admin]
         head :unauthorized unless check
     end
 
@@ -61,6 +62,12 @@ class EventController < ApplicationController
 
 		event.update_attributes(args)
 		render json: event
+	end
+
+	def delete
+		event = Event.find_by(id: params[:id])
+		event.destroy
+		render json: {status: "success"}
 	end
 
 end
