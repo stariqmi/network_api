@@ -73,9 +73,13 @@ class UserController < ApplicationController
 
     def update
         user = User.find_by id: params[:id]
-        user.update_attributes(first_name: params[:first_name], last_name: params[:last_name],
+        result = user.update_attributes(first_name: params[:first_name], last_name: params[:last_name],
                                 linkedin_id: params[:linkedin], email: params[:email])
-        render json: user
+        if result
+            render json: {result: "success", user: user}
+        else
+            render json: {result: "fail", error: "email already exists"}
+        end
     end
 
 
