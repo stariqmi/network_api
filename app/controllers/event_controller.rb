@@ -40,9 +40,9 @@ class EventController < ApplicationController
 
 		event = Event.create(args)
 		if event.id == nil
-            render :json => {error: "Event by title already exists"}
+            render :json => {status: "fail", error: "Event by title already exists"}
         else
-            render :json => event
+            render :json => {status: "success", error: event}
         end
 	end
 
