@@ -53,21 +53,31 @@ class UserController < ApplicationController
 
     def attend_event
         user = User.find_by id: params[:id]
-        user.update_attribute(:event_id, params[:event_id])
-        render json: user
+        event  = Event.find_by id: params[:event_id]
+        if event != nil
+            user.update_attribute(:event_id, params[:event_id])
+            render json: {status: "success", user: user}
+        else
+            render json: {status: "fail"}
+        end
     end
 
 
     def add_event
         user = User.find_by id: params[:id]
-        if user[:event_wishlist] == nil or user[:event_wishlist] == ""
-            puts "First Event"
-            user.update_attribute(:event_wishlist, params[:event_id])
+        event = Event.find_by id: params[:event_id]
+        if event != nil
+            if user[:event_wishlist] == nil or user[:event_wishlist] == ""
+                puts "First Event"
+                user.update_attribute(:event_wishlist, params[:event_id])
+            else
+                puts "Additional Event"
+                user.update_attribute(:event_wishlist, user[:event_wishlist] + "," + params[:event_id])
+            end
+            render json: {status: "success", user: user}
         else
-            puts "Additional Event"
-            user.update_attribute(:event_wishlist, user[:event_wishlist] + "," + params[:event_id])
+            render json: {status: "fail"}
         end
-        render json: user
     end
 
 
