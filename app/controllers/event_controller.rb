@@ -40,9 +40,9 @@ class EventController < ApplicationController
 
 		event = Event.create(args)
 		if event.id == nil
-            render :json => {status: "fail", error: "Event by title already exists"}
+            render :json => {status: "fail", error: "event by title already exists"}
         else
-            render :json => {status: "success", error: event}
+            render :json => {status: "success", event: event}
         end
 	end
 
@@ -66,8 +66,12 @@ class EventController < ApplicationController
 
 	def delete
 		event = Event.find_by(id: params[:id])
-		event.destroy
-		render json: {status: "success"}
+		if event != nil
+			event.destroy
+			render json: {status: "success"}
+		else
+			render json: {status: "fail", error: "event does not exits"}
+		end
 	end
 
 end
