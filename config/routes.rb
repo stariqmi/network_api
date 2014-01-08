@@ -7,7 +7,7 @@ Network::Application.routes.draw do
   match "user/update_gps", to: "user#update_gps", via: :put     # /:id/:api_key/:coords
   match "user/attend_event", to: "user#attend_event", via: :put # /:id/:api_key/:event_id
   match "user/add_event", to: "user#add_event", via: :put       # /:id/:api_key/event_id
-  match "user/update", to: "user#update", via: :put             # /:id/:first_name/:last_name/:linkedin/:email
+  match "user/update", to: "user#update", via: :put             # /:id/:api_key/:first_name/:last_name/:linkedin/:email
   match "user/wishlist/:id/:api_key", to: "user#wishlist", via: :get
   match "user/delete/:id/:api_key", to: "user#delete", via: :delete
 
