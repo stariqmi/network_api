@@ -1,6 +1,6 @@
 class User < ActiveRecord::Base
   belongs_to :event
-  validates :email, uniqueness: true
+  validates :email, uniqueness: true, presence: true
   before_create :generate_api_key
 
   def generate_api_key

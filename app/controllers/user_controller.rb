@@ -37,7 +37,7 @@ class UserController < ApplicationController
                             email: params[:email],
                             gps_coord: params[:gps])
         if user.id == nil
-            render :json => {status: "fail", error: "email already exists"}
+            render :json => {status: "fail", error: "email already exists or invalid"}
         else
             render :json => {status: "success", user: user}
         end
