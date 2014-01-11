@@ -46,7 +46,7 @@ class UserController < ApplicationController
 
     def update_gps
         user = User.find_by id: params[:id]
-        user[:gps_coord] = params[:coords]
+        user.update_attribute(:gps_coord, params[:coords])
         render json: user
     end
 
